@@ -9,36 +9,16 @@ import {AuthContext} from './context';
 import Button from 'react-bootstrap/Button';
 
 import Login from './components/views/login'
-import Restaurants from './components/views/restaurants'
+import RestaurantScreen from './components/screens/restaurantScreen'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-const AuthStack = createNativeStackNavigator();
-const AuthStackScreen = () => (
-  <AuthStack.Navigator screenOptions={{ headerShown: false, headerMode: 'none'}}>
-    <AuthStack.Screen name="Login" component={Login}/>
-  </AuthStack.Navigator>
-);
-
-const Stack = createBottomTabNavigator();
-const StackScreen = () => (
-  <Stack.Navigator options={{headerRight: () => (
-      <Button
-        onClick={() => handleSignOut()}
-        variant="rdelivery" type="Button"
-        className="me-2"
-      >
-        Logout
-      </Button>
-    )
-  }}>
-    <Stack.Screen name="Restaurants" component={Restaurants} />
-  </Stack.Navigator>
-);
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [signedIn, setSignedIn] = useState(false);
+
+  const AuthStack = createNativeStackNavigator();
+  const Stack = createBottomTabNavigator();
 
   const authContext = useMemo(() => {
     return {
@@ -50,6 +30,28 @@ export default function App() {
       }
     } 
   },[]);
+
+  const AuthStackScreen = () => (
+    <AuthStack.Navigator screenOptions={{ headerShown: false, headerMode: 'none'}}>
+      <AuthStack.Screen name="Login" component={Login}/>
+    </AuthStack.Navigator>
+  );
+  
+  
+  const StackScreen = () => (
+    <Stack.Navigator>
+      <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} options={{headerRight: () => (
+        <Button
+          onClick={() => handleSignOut()}
+          variant="rdelivery" type="Button"
+          className="me-2"
+        >
+          Logout
+        </Button>
+      )
+    }}/>
+    </Stack.Navigator>
+  );
 
   useEffect(() => {
 
@@ -94,18 +96,7 @@ export default function App() {
       </style>
       <NavigationContainer>
         {signedIn ? (
-            <Stack.Navigator>
-            <Stack.Screen name="Restaurants" component={Restaurants} options={{headerRight: () => (
-              <Button
-                onClick={() => handleSignOut()}
-                variant="rdelivery" type="Button"
-                className="me-2"
-              >
-                Logout
-              </Button>
-            )
-          }}/>
-          </Stack.Navigator>
+            <StackScreen/>
           ) : (
             <AuthStackScreen/>
           )}
