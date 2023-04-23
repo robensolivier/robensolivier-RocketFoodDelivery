@@ -2,7 +2,7 @@ import React from 'react'
 import { Rating } from 'react-native-stock-star-rating'
 import {Image, ScrollView, Text, TouchableOpacity} from 'react-native';
 
-export default function Menu({navigation}) {
+export default function Menu({ route, navigation}) {
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
