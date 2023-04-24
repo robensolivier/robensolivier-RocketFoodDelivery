@@ -10,8 +10,8 @@ import Form from 'react-bootstrap/Form';
 import RestaurantCard from '../other/restaurantCard';
 
 export default function Restaurants({ navigation}) {
-  const [rating, setRating] = useState(null)
-  const [price, setPrice] = useState(null)
+  const [rating, setRating] = useState('')
+  const [price, setPrice] = useState('')
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
@@ -38,13 +38,17 @@ export default function Restaurants({ navigation}) {
 
   function restaurantList() {
     return restaurants.map((restaurant) => {
-        return (
-            <Col key={restaurant.id}>
-              <TouchableOpacity onPress={() => navigation.navigate('Menu', {restaurant})}>
-                <RestaurantCard restaurant={restaurant} key={restaurant.id} />
-              </TouchableOpacity>
-            </Col>
-        );
+      return (
+        <Col key={restaurant.id}>
+          <TouchableOpacity onPress={() => navigation.navigate('Menu', {restaurant})}>
+            <RestaurantCard restaurant={restaurant} key={restaurant.id}>
+              <Text style={{fontSize: 24, fontWeight: 'bold'}}>
+                {'*'.repeat(restaurant.rating)}
+              </Text>
+            </RestaurantCard>
+          </TouchableOpacity>
+        </Col>
+      );
     });
   }
 
@@ -58,9 +62,9 @@ export default function Restaurants({ navigation}) {
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <Col><h1>Nearby Restaurants</h1></Col>
         <Container fluid className="m-3">
           <Row>
-              <Col><h1>Restaurants</h1></Col>
           </Row>
           <Row xs={2} className="me-2">
               <Col><h2>Rating</h2></Col>
@@ -72,11 +76,11 @@ export default function Restaurants({ navigation}) {
                   id="rating_select"
                   onChange={(e) => updateRating({ rating: e.target.value })}>
                     <option key={0} value={""}>--Select--</option>
-                    <option key={1} value={1}>1</option>
-                    <option key={2} value={2}>2</option>
-                    <option key={3} value={3}>3</option>
-                    <option key={4} value={4}>4</option>
-                    <option key={5} value={5}>5</option>
+                    <option key={1} value={1}>*</option>
+                    <option key={2} value={2}>**</option>
+                    <option key={3} value={3}>***</option>
+                    <option key={4} value={4}>****</option>
+                    <option key={5} value={5}>*****</option>
                 </Form.Select>
               </Col>
               <Col>
@@ -91,6 +95,7 @@ export default function Restaurants({ navigation}) {
                     <option key={3} value={3}>$$$</option>
                 </Form.Select>
               </Col>
+                    <Col><h1>Restaurants</h1></Col>
           </Row>
           <Row xs={2} className="me-2">
             {restaurantList()}
@@ -99,3 +104,4 @@ export default function Restaurants({ navigation}) {
         </ScrollView>
   )
 }
+
