@@ -16,6 +16,7 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [signedIn, setSignedIn] = useState(false);
+  const [products, setProducts] = useState();
 
   const AuthStack = createNativeStackNavigator();
   const Stack = createBottomTabNavigator();
@@ -43,7 +44,7 @@ export default function App() {
       <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} options={{headerRight: () => (
         <Button
           onClick={() => handleSignOut()}
-          variant="rdelivery" type="Button"
+          variant="rdelivery-header" type="Button"
           className="me-2"
         >
           Logout
@@ -88,7 +89,7 @@ export default function App() {
     <AuthContext.Provider value ={authContext}>
       <style type="text/css">
             {`
-                .btn-rdelivery {
+                .btn-rdelivery-header {
                     background-color: #DA583B;
                     color: white;
                 }

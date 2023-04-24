@@ -36,33 +36,11 @@ export default function Restaurants({ navigation}) {
 
   },[rating,price]);
 
-  useEffect(() => {
-
-    const getProducts = async () => {
-        
-        try {
-            const fetchResponse = await fetch(`http://localhost:3000/api/products?restaurant=${restaurantId}`);
-            const data = await fetchResponse.json();
-            if(data.error){
-              alert('Response Error')
-            }
-            else{
-              setProducts(data);
-            }
-        } catch (e) {
-            alert('failed fetch: '+ e.message)
-        }   
-
-    };
-    getProducts()
-
-  },[products.length]);
-
   function restaurantList() {
     return restaurants.map((restaurant) => {
         return (
             <Col key={restaurant.id}>
-              <TouchableOpacity onPress={() => navigation.push('Menu', {restaurant: restaurant})}>
+              <TouchableOpacity onPress={() => navigation.navigate('Menu', {restaurant})}>
                 <RestaurantCard restaurant={restaurant} key={restaurant.id} />
               </TouchableOpacity>
             </Col>
