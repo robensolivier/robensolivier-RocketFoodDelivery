@@ -1,3 +1,5 @@
+// Import Dependencies
+
 import React, {useState, useEffect, useMemo} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View , Image} from 'react-native';
@@ -7,12 +9,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthContext} from './context';
 import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+// Import Components & Assets
 
 import Login from './components/views/login'
 import RestaurantScreen from './components/screens/restaurantScreen'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import AppLogoV2 from './assets/images/AppLogoV2.png';
+import OrderHistory from './components/views/orderHistory'
+import AccountCustomer from './components/views/accountCustomer';
+import AccountCourrier from './components/views/accountCourrier';
 
-const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [signedIn, setSignedIn] = useState(false);
@@ -41,7 +48,33 @@ export default function App() {
   
   const StackScreen = () => (
     <Stack.Navigator>
-      <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} options={{headerRight: () => (
+      <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} options={{headerTitle: null, 
+      headerLeft: () => (<Image style={styles.logo} source={AppLogoV2} />), 
+      headerRight:  () => (
+        <Button
+          onClick={() => handleSignOut()}
+          variant="rdelivery-header" type="Button"
+          className="me-2"
+        >
+          Logout
+        </Button>
+      )
+    }}/>
+      <Stack.Screen name="OrderHistory" component={OrderHistory} options={{headerTitle: null, 
+      headerLeft: () => (<Image style={styles.logo} source={AppLogoV2} />), 
+      headerRight:  () => (
+        <Button
+          onClick={() => handleSignOut()}
+          variant="rdelivery-header" type="Button"
+          className="me-2"
+        >
+          Logout
+        </Button>
+      )
+    }}/>
+          <Stack.Screen name="Account" component={AccountCustomer} options={{headerTitle: null, 
+      headerLeft: () => (<Image style={styles.logo} source={AppLogoV2} />), 
+      headerRight:  () => (
         <Button
           onClick={() => handleSignOut()}
           variant="rdelivery-header" type="Button"
