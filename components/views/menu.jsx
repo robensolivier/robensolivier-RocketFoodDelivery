@@ -115,7 +115,9 @@ export default function Menu({ route }) {
                 <Text>{product.quantity}</Text>
                 </Col>
 <Col>
-<Button variant="link" onClick={() => handleIncrement(product.id)}>+</Button>
+<Button variant="link" onClick={() => handleIncrement(product.id)}>+
+
+</Button>
 </Col>
 </Row>
 <TouchableOpacity style={styles.orderBtn} onPress={() => showModal(product)}>
